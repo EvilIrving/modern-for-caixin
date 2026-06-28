@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Modern for Caixin · 把财新读成一份安静的现代报刊</title>
+  <meta name="description" content="Modern for Caixin 是面向财新读者的浏览器扩展，让首页更清爽，长文更专注。支持 Chrome、Edge、Firefox，MIT 许可。" />
+  <meta name="keywords" content="财新, Caixin, 财新网, 浏览器扩展, Chrome 扩展, Edge 扩展, Firefox 扩展, 阅读模式, 中文排版, Manifest V3" />
+  <meta name="author" content="EvilIrving" />
+  <link rel="canonical" href="https://evilirving.github.io/modern-for-caixin/" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#2f2d28" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Modern for Caixin · 把财新读成一份安静的现代报刊" />
+  <meta property="og:description" content="面向财新读者的浏览器扩展。页面更清爽，长文更专注，支持 Chrome、Edge、Firefox。" />
+  <meta property="og:url" content="https://evilirving.github.io/modern-for-caixin/" />
+  <meta property="og:image" content="https://evilirving.github.io/modern-for-caixin/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:site_name" content="Modern for Caixin" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Modern for Caixin · 把财新读成一份安静的现代报刊" />
+  <meta name="twitter:description" content="让财新首页更清爽，长文更专注。浏览器扩展，支持 Chrome、Edge、Firefox。" />
+  <meta name="twitter:image" content="https://evilirving.github.io/modern-for-caixin/assets/og-image.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Modern for Caixin",
+    "applicationCategory": "BrowserApplication",
+    "operatingSystem": "Chrome, Edge, Firefox",
+    "softwareVersion": "0.9.0",
+    "description": "Modern for Caixin 是面向财新读者的浏览器扩展，让首页更清爽，长文更专注。",
+    "url": "https://github.com/EvilIrving/modern-for-caixin",
+    "downloadUrl": "https://github.com/EvilIrving/modern-for-caixin/releases",
+    "license": "https://opensource.org/licenses/MIT",
+    "author": { "@type": "Person", "name": "EvilIrving" },
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Modern for Caixin 是什么？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Modern for Caixin 是面向财新读者的浏览器扩展，为 caixin.com 叠加一层阅读优先的现代报刊界面。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "它会解锁财新付费文章吗？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "你能看到什么内容，仍由你的财新账号和订阅权限决定。扩展只重排当前页面中已经呈现的内容。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "它会上传我的阅读内容吗？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "不会。扩展在本地浏览器重排页面，不上传正文、账号、cookie 或阅读记录。少数列表区块会用匿名公开 JSON 补全，不携带 cookie；设置、阅读清单、历史、高亮和 Pro 状态只保存在浏览器本地。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "支持哪些浏览器？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "项目当前面向桌面 Chrome、Edge 和 Firefox。Safari 未纳入当前发布范围。"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --accent: #2f2d28;
+      --ink: #1a1a1a;
+      --muted: #6b6b6b;
+      --faint: #8c8c8c;
+      --line: #e5e5e5;
+      --wash: #fafafa;
+      --paper: #f3eadb;
+      --danger: #a9785c;
+      --serif: "Source Han Serif SC", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+      --sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--ink);
+      line-height: 1.7;
+      background: #fff;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--danger); }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+    .wide { max-width: 960px; }
+
+    header.nav {
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+    .nav .wrap {
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: 19px;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+    }
+    .logo-mark {
+      width: 28px;
+      height: 28px;
+      display: block;
+    }
+    .nav-links a { color: var(--muted); font-size: 14px; margin-left: 20px; }
+    .nav-links a:hover { color: var(--accent); }
+
+    .hero { padding: 76px 0 52px; }
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--accent);
+      font-size: 14px;
+      letter-spacing: 0.08em;
+    }
+    h1 {
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: clamp(36px, 7vw, 56px);
+      line-height: 1.18;
+      letter-spacing: 0.01em;
+      margin: 0 0 18px;
+      color: var(--ink);
+    }
+    .lead {
+      max-width: 640px;
+      font-size: 18px;
+      color: var(--muted);
+      margin: 0 0 28px;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .cta {
+      display: inline-block;
+      font-size: 15px;
+      padding: 9px 18px;
+      border: 1px solid var(--accent);
+      border-radius: 2px;
+      color: var(--accent);
+      background: #fff;
+    }
+    .cta.primary { background: var(--accent); color: #fff; }
+    .cta.primary:hover { background: #3a372f; color: #fff; }
+    .cta:hover { background: var(--wash); }
+    .note { color: var(--faint); font-size: 13px; margin-top: 16px; }
+
+    .hero-shot {
+      margin: 48px 0 0;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 16px;
+    }
+    .hero-shot img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+    }
+    .hero-shot figcaption {
+      margin: 14px 2px 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    section { padding: 40px 0; border-top: 1px solid var(--line); }
+    h2.section {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+      padding-bottom: 4px;
+      margin: 0 0 22px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 28px;
+    }
+    .feature, .step, .faq-item {
+      padding: 17px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .feature h3, .step h3, .faq-item h3 {
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 600;
+      margin: 0 0 6px;
+      color: var(--ink);
+    }
+    .feature p, .step p, .faq-item p, section > p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .redline {
+      border-left: 2px solid var(--accent);
+      padding: 4px 0 4px 16px;
+      color: var(--muted);
+      font-size: 15px;
+      margin: 12px 0;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.9em;
+      background: var(--wash);
+      padding: 1px 5px;
+      border-radius: 2px;
+      color: var(--ink);
+    }
+    pre {
+      background: var(--wash);
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      padding: 14px 16px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    pre code { background: none; padding: 0; }
+    .list { margin: 0; padding-left: 1.2em; color: var(--muted); font-size: 15px; }
+    .list li { margin: 6px 0; }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 0 56px;
+      color: var(--faint);
+      font-size: 13px;
+    }
+    footer a { color: var(--muted); }
+
+    @media (max-width: 720px) {
+      .nav-links a { margin-left: 12px; }
+      .hero { padding-top: 52px; }
+      .hero-shot { margin-top: 36px; padding: 10px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap wide">
+      <span class="logo"><img class="logo-mark" src="./assets/icon-128.png" alt="" />Modern for Caixin</span>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="#install">安装</a>
+        <a href="./privacy.html">隐私</a>
+        <a href="https://github.com/EvilIrving/modern-for-caixin">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap wide">
+    <div class="hero">
+      <p class="eyebrow">财新阅读增强 · Chrome / Edge / Firefox</p>
+      <h1>把财新读成一份安静的现代报刊</h1>
+      <p class="lead">
+        Modern for Caixin 面向每天读财新的桌面读者。它收起门户噪音，保留新闻的层级和重点，让首页更清爽，长文更专注。
+      </p>
+      <div class="actions">
+        <a class="cta primary" href="https://github.com/EvilIrving/modern-for-caixin/releases">下载安装包</a>
+        <a class="cta" href="#install">安装方式</a>
+        <a class="cta" href="https://github.com/EvilIrving/modern-for-caixin/issues">反馈问题</a>
+      </div>
+      <p class="note">Chrome、Edge、Firefox 链接准备好后会在这里更新；手动安装包同步发布在 GitHub Releases。</p>
+
+      <figure class="hero-shot">
+        <img src="./assets/hero-home.png" alt="Modern for Caixin 重排后的财新首页：头条、要闻分区，衬线标题，1px 细线分隔" loading="lazy" />
+        <figcaption>不是通用阅读模式，是专为财新做的版面。首页、频道、文章、周刊按各自结构重排，原站仍在底下存活，登录、订阅和评论入口保持可用。</figcaption>
+      </figure>
+    </div>
+
+    <section>
+      <h2 class="section">它适合谁</h2>
+      <p>
+        Modern for Caixin 适合在桌面浏览器里长期阅读财新的用户：订阅读者、财经从业者、研究者，以及希望把网页读成一份清爽报刊的人。
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section">功能特性</h2>
+      <div class="grid">
+        <div class="feature">
+          <h3>首页和频道更清爽</h3>
+          <p>按头条、要闻、专栏等结构重排，保留重要度，减少拥挤感。</p>
+        </div>
+        <div class="feature">
+          <h3>长文更专注</h3>
+          <p>文章页使用窄阅读列、衬线正文和稳定行距，让阅读节奏更像报刊。</p>
+        </div>
+        <div class="feature">
+          <h3>周刊保留出版物感</h3>
+          <p>封面、分栏目录、往期网格按杂志语境呈现，而不是普通列表。</p>
+        </div>
+        <div class="feature">
+          <h3>样式隔离</h3>
+          <p>React 界面挂在 Shadow DOM 中，扩展样式与财新原站样式互不污染。</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section">安心使用</h2>
+      <div class="redline">你能看到什么内容，仍由你的财新账号和订阅权限决定。</div>
+      <div class="redline">登录、购买、评论和核对原文，仍回到财新原页面完成。</div>
+      <div class="redline">页面重排在浏览器本地完成；设置、阅读清单、历史、高亮和 Pro 状态只保存在浏览器本地。</div>
+    </section>
+
+    <section id="install">
+      <h2 class="section">安装与发布渠道</h2>
+      <div class="step">
+        <h3>Chrome / Edge / Firefox 商店版</h3>
+        <p>商店版提供免费核心体验。上架链接准备好后会在这里更新。</p>
+      </div>
+      <div class="step">
+        <h3>GitHub Releases</h3>
+        <p>安装包发布在 <a href="https://github.com/EvilIrving/modern-for-caixin/releases">GitHub Releases</a>，提供 Chrome / Edge / Firefox 三个平台的解压即装版本。下载对应平台的 zip，解压后在浏览器扩展页开启「开发者模式」加载即可。</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section">权限与隐私</h2>
+      <p>
+        扩展请求 <code>*://*.caixin.com/*</code>，因为它只在财新页面工作。权限用于读取当前页面 DOM、注入本地阅读界面，并在少数列表区块请求匿名公开数据补全，不携带 cookie。扩展还使用 <code>storage</code> 在浏览器本地保存设置、阅读清单、历史足迹、高亮和 Pro 状态，不上传。
+      </p>
+      <ul class="list">
+        <li>不上传浏览历史或阅读记录。</li>
+        <li>不上传正文、标题、评论、截图或页面 HTML。</li>
+        <li>不读取密码，不保存或传输账号、cookie、订阅信息或支付信息。</li>
+      </ul>
+      <p style="margin-top: 14px;"><a href="./privacy.html">查看完整隐私政策</a></p>
+    </section>
+
+    <section>
+      <h2 class="section">常见问题</h2>
+      <div class="faq-item">
+        <h3>这是财新官方产品吗？</h3>
+        <p>不是。Modern for Caixin 是第三方、非官方项目，与财新传媒无关联，也未获得财新官方背书。</p>
+      </div>
+      <div class="faq-item">
+        <h3>和通用阅读模式有什么不同？</h3>
+        <p>通用阅读模式通常只抽取正文。Modern for Caixin 会按财新页面结构处理首页、频道、文章和周刊，保留新闻层级。</p>
+      </div>
+      <div class="faq-item">
+        <h3>免费版能用多久？</h3>
+        <p>核心阅读体验永久免费。商店版会先保持这个清爽默认，不做设置面板。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap wide">
+      <a href="https://github.com/EvilIrving/modern-for-caixin/blob/main/LICENSE">MIT License</a> · © 2026 EvilIrving ·
+      <a href="https://github.com/EvilIrving/modern-for-caixin">GitHub</a> ·
+      <a href="./privacy.html">隐私政策</a>
+    </div>
+  </footer>
+</body>
+</html>

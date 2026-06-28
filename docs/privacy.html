@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>隐私政策 · Modern for Caixin</title>
+  <meta name="description" content="Modern for Caixin 的隐私政策：本扩展在本地重排财新页面，不上传浏览记录或正文内容，不保存或传输登录凭据，不使用遥测。" />
+  <link rel="canonical" href="https://evilirving.github.io/modern-for-caixin/privacy.html" />
+  <style>
+    :root {
+      --accent: #2f2d28;
+      --ink: #1a1a1a;
+      --muted: #6b6b6b;
+      --line: #e5e5e5;
+      --wash: #fafafa;
+      --serif: "Source Han Serif SC", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+      --sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--ink);
+      line-height: 1.75;
+      background: #fff;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 48px 20px 64px; }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .brand img { width: 32px; height: 32px; display: block; }
+    h1, h2 { font-family: var(--serif); color: var(--ink); }
+    h1 { margin: 0 0 12px; font-size: 34px; line-height: 1.25; }
+    h2 { margin: 36px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--line); font-size: 20px; }
+    p, li { color: var(--muted); font-size: 15px; }
+    ul { padding-left: 1.3em; }
+    .meta { color: var(--muted); font-size: 14px; }
+    .note { border-left: 2px solid var(--accent); padding-left: 14px; margin: 20px 0; }
+    code { background: var(--wash); padding: 1px 5px; border-radius: 2px; color: var(--ink); }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <a class="brand" href="./landing.html">
+      <img src="./assets/icon-128.png" alt="" />
+      <span>Modern for Caixin</span>
+    </a>
+    <h1>隐私政策</h1>
+    <p class="meta">Modern for Caixin · 最后更新：2026-06-28</p>
+
+    <p class="note">
+      Modern for Caixin 在你的浏览器本地工作，主要读取当前打开的财新页面 DOM，用来重新排版页面。少数列表区块会请求财新的匿名公开 JSON 数据补全，不携带 cookie。设置、阅读清单、历史足迹、高亮和 Pro 状态只保存在浏览器本地。扩展不收集、出售、传输或分析你的个人数据。
+    </p>
+
+    <h2>我们不收集什么</h2>
+    <ul>
+      <li>不上传浏览历史、阅读记录或访问频率。</li>
+      <li>不上传文章正文、标题、评论、页面截图或页面 HTML。</li>
+      <li>不读取密码，不保存或传输财新的账号、cookie、订阅信息或支付信息。</li>
+      <li>不使用遥测、埋点、广告 SDK、第三方统计脚本或远程日志。</li>
+    </ul>
+
+    <h2>扩展在本地做什么</h2>
+    <p>
+      扩展仅在匹配 <code>*.caixin.com</code> 的页面上运行。它读取当前页面已经渲染出来的 DOM，提取标题、正文、列表、图片和页面结构信息，然后在浏览器本地生成阅读界面。少数页面的空列表区块会请求财新的匿名公开 JSON 接口补全；这些请求使用 <code>credentials: "omit"</code>，不携带财新 cookie。
+    </p>
+
+    <h2>权限说明</h2>
+    <p>
+      扩展需要访问 <code>*://*.caixin.com/*</code>，因为它只服务财新网页，需要在这些页面上读取 DOM 并注入本地阅读界面。这个权限不用于访问其他网站。扩展还需要 <code>storage</code> 权限，用于在浏览器本地保存设置、阅读清单、历史足迹、高亮和 Pro 状态，不上传。扩展会本地读取昵称 cookie 来镜像登录显示，但不会保存、修改或传输 cookie。
+    </p>
+
+    <h2>付费内容与登录态</h2>
+    <p>
+      Modern for Caixin 不解锁付费正文，不绕过登录、订阅或付费墙，也不修改财新的账号体系。你能看到什么内容，仍由你与财新之间的登录状态和订阅权限决定。
+    </p>
+
+    <h2>Pro 授权码</h2>
+    <p>
+      GitHub 自安装版可能包含 Pro 预览能力。正式授权码验签尚未开放；开放后会在浏览器本地校验，不发送到服务器。商店免费版不包含站外付费解锁流程。
+    </p>
+
+    <h2>第三方关系</h2>
+    <p>
+      Modern for Caixin 是第三方、非官方项目，与财新传媒无关联，也未获得财新官方背书。请在遵守财新网服务条款的前提下使用。
+    </p>
+
+    <h2>联系方式</h2>
+    <p>
+      如果你发现隐私或安全问题，请通过 GitHub issue 联系：<a href="https://github.com/EvilIrving/modern-for-caixin/issues">github.com/EvilIrving/modern-for-caixin/issues</a>。
+    </p>
+
+    <p><a href="./landing.html">返回 Modern for Caixin</a></p>
+  </main>
+</body>
+</html>
